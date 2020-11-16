@@ -28,8 +28,11 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # ----------------------------------------
 print('>>>処理開始')
 
-# ブラウザを起動して最大化する
+# ブラウザを起動する
 driver = webdriver.Chrome(cd_path, options=chrome_options)
+# 要素が見つかるまで最大60秒待つ設定
+driver.implicitly_wait(60)
+# ブラウザを最大化
 driver.maximize_window()
 
 # 対象のURLを開く
@@ -44,12 +47,13 @@ driver.find_element_by_xpath(xpath).send_keys('東京')
 # 検索ボタンクリック
 xpath = '//*[@id="search_body"]/div[3]/input'
 driver.find_element_by_xpath(xpath).click()
+driver.implicitly_wait(60)
 
 # 経路の要素数を格納する
 # 出発時刻が過ぎていても表示されるので0にはならない想定
 e_cnt = driver.find_elements_by_class_name('t1')
 
-with open('timetable.txt', 'w') as f:
+with open('timetable.txt', 'w', encoding='utf8') as f:
     # 要素数だけ経路の発着時間のテキストを取得するして書き出す
     for i in range(len(e_cnt)):
         xpath = '//*[@id="Bk_list_tbody"]/tr[' + str(i + 1) + ']/td[2]'
