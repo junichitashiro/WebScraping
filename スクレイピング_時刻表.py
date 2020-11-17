@@ -30,10 +30,10 @@ print('>>>処理開始')
 
 # ブラウザを起動する
 driver = webdriver.Chrome(cd_path, options=chrome_options)
-# 要素が見つかるまで最大60秒待つ設定
-driver.implicitly_wait(60)
 # ブラウザを最大化
 driver.maximize_window()
+# 要素が見つかるまで最大60秒待つ設定
+driver.implicitly_wait(60)
 
 # 対象のURLを開く
 driver.get('https://www.jorudan.co.jp/norikae/')
@@ -47,7 +47,6 @@ driver.find_element_by_xpath(xpath).send_keys('東京')
 # 検索ボタンクリック
 xpath = '//*[@id="search_body"]/div[3]/input'
 driver.find_element_by_xpath(xpath).click()
-driver.implicitly_wait(60)
 
 # 経路の要素数を格納する
 # 出発時刻が過ぎていても表示されるので0にはならない想定
