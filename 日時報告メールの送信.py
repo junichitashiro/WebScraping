@@ -3,7 +3,7 @@
 売上報告（東京本社）_yyyymmdd.xlsx
 売上報告（名古屋支社）_yyyymmdd.xlsx
 売上報告（大阪支社）_yyyymmdd.xlsx
-※yyyymmddは処理年月
+※yyyymmddは処理年月日
 '''
 
 
