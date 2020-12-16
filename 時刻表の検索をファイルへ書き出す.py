@@ -40,10 +40,10 @@ driver.get('https://www.jorudan.co.jp/norikae/')
 
 # 出発地エリア入力
 xpath = '//*[@id="eki1_in"]'
-driver.find_element_by_xpath(xpath).send_keys('出発駅')
+driver.find_element_by_xpath(xpath).send_keys('新宿')
 # 到着地エリア入力
 xpath = '//*[@id="eki2_in"]'
-driver.find_element_by_xpath(xpath).send_keys('到着駅')
+driver.find_element_by_xpath(xpath).send_keys('東京')
 # 検索ボタンクリック
 xpath = '//*[@id="search_body"]/div[3]/input'
 driver.find_element_by_xpath(xpath).click()
