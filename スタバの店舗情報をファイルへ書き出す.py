@@ -65,6 +65,9 @@ for todofuken_cnt in range(1, 4):
     # 件数取得を安定させるためのウェイト
     time.sleep(3)
 
+    # ----------------------------------------
+    # 遷移先での情報取得前処理
+    # ----------------------------------------
     # ページ上部に表示されている検索結果から件数のみを抽出する
     result_xpath = '//*[@id="result_title"]'
     result_text = driver.find_element_by_xpath(result_xpath).text
