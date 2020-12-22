@@ -63,7 +63,7 @@ for todofuken_id in range(2, 3):
     todofuken_name = driver.find_element_by_xpath(todofuken_xpath).text
     print(' >>処理対象：' + todofuken_name)
     # 対象件数の抽出に使用するため都道府県名の文字数を格納する
-    name_len = len(todofuken_name)
+    todofuken_chars = len(todofuken_name)
     # 各都道府県での検索結果ページへ遷移する
     driver.find_element_by_xpath(todofuken_xpath).click()
     # 件数取得を安定させるためのウェイト
@@ -75,7 +75,7 @@ for todofuken_id in range(2, 3):
     # ページ上部に表示されている検索結果から件数のみを抽出する
     result_xpath = '//*[@id="result_title"]'
     result_text = driver.find_element_by_xpath(result_xpath).text
-    result_cnt = int(result_text[13 + name_len:-3])
+    result_cnt = int(result_text[13 + todofuken_chars:-3])
 
     # 「もっと見る」ボタンを押せるだけ押す
     if result_cnt > 10:
