@@ -15,22 +15,22 @@ root.withdraw()
 # ----------------------------------------
 # csvファイルの読み込み
 # ----------------------------------------
-file_name = 'input.csv'
+csv_file = 'input.csv'
 # ファイルがなかったら処理を終了する
-if os.path.exists(file_name):
-    with open(file_name, 'r', encoding='utf8') as f:
+if os.path.exists(csv_file):
+    with open(csv_file, 'r', encoding='utf8') as f:
         reader = csv.reader(f)
         line = [row for row in reader]
     # ヘッダしか入力がなかったら処理を終了する
-    input_cnt = len(line)
-    print('処理対象件数： ' + str(input_cnt - 1))
+    input_row = len(line)
+    print('処理対象件数： ' + str(input_row - 1))
 
-    if input_cnt < 2:
+    if input_row < 2:
         messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
         exit()
 
 else:
-    messagebox.showerror('ファイルチェックエラー', '『' + file_name + '』が存在しないため処理を終了します。')
+    messagebox.showerror('ファイルチェックエラー', '『' + csv_file + '』が存在しないため処理を終了します。')
     exit()
 
 
@@ -82,7 +82,7 @@ clear_xpath = '//*[@id="clearbtn"]'
 # ----------------------------------------
 # 情報の入力と計算の実行
 # ----------------------------------------
-for i in range(1, input_cnt):
+for i in range(1, input_row):
     # csvファイルの値を変数に格納する
     age = line[i][0]
     sex = line[i][1]
@@ -113,7 +113,7 @@ for i in range(1, input_cnt):
     # 計算結果の表示
     # ----------------------------------------
     energy = driver.find_element_by_xpath(ans0_xpath).text
-    message = str(i) + '／' + str(input_cnt - 1) + '件目' + '''
+    message = str(i) + '／' + str(input_row - 1) + '件目' + '''
     \n１日に必要なエネルギー量は ''' + energy + ' Kcalです'
     messagebox.showinfo('計算結果', message)
 

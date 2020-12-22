@@ -46,11 +46,15 @@ driver.get('https://store.starbucks.co.jp/')
 # ----------------------------------------
 more_xpath = '//*[@id="moreList"]'
 
-# 都道府県用のカウンタ 1:北海道 8：東京 47:沖縄
-todofuken_cnt = 1
-for todofuken_cnt in range(1, 4):
+# 各都道府県を表す数字を格納する変数の初期化
+todofuken_id = 0
+
+# 検索対象都道府県の範囲を指定する
+# 北から 1:北海道 8：東京 47:沖縄
+# 下記では青森のみが対象となる
+for todofuken_id in range(2, 3):
     # 各都道府県画面へのリンクを格納する
-    todofuken_xpath = '//*[@id="search_section"]/div[2]/div[1]/div[2]/ul/li[' + str(todofuken_cnt) + ']/a'
+    todofuken_xpath = '//*[@id="search_section"]/div[2]/div[1]/div[2]/ul/li[' + str(todofuken_id) + ']/a'
 
     # ----------------------------------------
     # 画面遷移
@@ -59,7 +63,7 @@ for todofuken_cnt in range(1, 4):
     todofuken_name = driver.find_element_by_xpath(todofuken_xpath).text
     print(' >>処理対象：' + todofuken_name)
     # 対象件数の抽出に使用するため都道府県名の文字数を格納する
-    todofuken_len = len(todofuken_name)
+    name_len = len(todofuken_name)
     # 各都道府県での検索結果ページへ遷移する
     driver.find_element_by_xpath(todofuken_xpath).click()
     # 件数取得を安定させるためのウェイト
@@ -71,7 +75,7 @@ for todofuken_cnt in range(1, 4):
     # ページ上部に表示されている検索結果から件数のみを抽出する
     result_xpath = '//*[@id="result_title"]'
     result_text = driver.find_element_by_xpath(result_xpath).text
-    result_cnt = int(result_text[13 + todofuken_len:-3])
+    result_cnt = int(result_text[13 + name_len:-3])
 
     # 「もっと見る」ボタンを押せるだけ押す
     if result_cnt > 10:
