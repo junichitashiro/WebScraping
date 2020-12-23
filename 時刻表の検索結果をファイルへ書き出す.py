@@ -1,6 +1,8 @@
-# ----------------------------------------
-# 乗換案内の検索結果をテキストファイルに書き出す
-# ----------------------------------------
+'''
+乗換案内の検索結果をテキストファイルに書き出す処理
+出発時刻が過ぎていても結果が表示されるので
+検索結果が必ずある前提の処理になっている
+'''
 
 
 # ----------------------------------------
@@ -12,14 +14,9 @@ from selenium import webdriver
 # ----------------------------------------
 # 変数の設定
 # ----------------------------------------
-# ChromeDriverの絶対パス
 cd_path = 'C:\\ChromeDriver\\chromedriver.exe'
-# ChromeDriverのオプション
 chrome_options = webdriver.ChromeOptions()
-# ヘッドレスモードで起動
 chrome_options.add_argument('--headless')
-# enable-automation：ブラウザ起動時のテスト実行警告を非表示
-# enable-logging：DevToolsのログを出力しない
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
@@ -27,15 +24,9 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # 処理開始
 # ----------------------------------------
 print('>>>処理開始')
-
-# ブラウザを起動する
 driver = webdriver.Chrome(cd_path, options=chrome_options)
-# ブラウザを最大化
 driver.maximize_window()
-# 要素が見つかるまで最大60秒待つ設定
-driver.implicitly_wait(60)
-
-# 対象のURLを開く
+driver.implicitly_wait(10)
 driver.get('https://www.jorudan.co.jp/norikae/')
 
 # 出発地エリア入力
@@ -47,13 +38,10 @@ driver.find_element_by_xpath(xpath).send_keys('東京')
 # 検索ボタンクリック
 xpath = '//*[@id="search_body"]/div[3]/input'
 driver.find_element_by_xpath(xpath).click()
-
-# 経路の要素数を格納する
-# 出発時刻が過ぎていても表示されるので0にはならない想定
 e_cnt = driver.find_elements_by_class_name('t1')
 
+# 出力処理
 with open('timetable.txt', 'w', encoding='utf8') as f:
-    # 要素数だけ経路の発着時間のテキストを取得するして書き出す
     for i in range(len(e_cnt)):
         xpath = '//*[@id="Bk_list_tbody"]/tr[' + str(i + 1) + ']/td[2]'
         f.write(driver.find_element_by_xpath(xpath).text + '\n')
@@ -63,6 +51,4 @@ with open('timetable.txt', 'w', encoding='utf8') as f:
 # 処理終了
 # ----------------------------------------
 print('<<<処理終了')
-
-# ブラウザを閉じる
 driver.quit()
