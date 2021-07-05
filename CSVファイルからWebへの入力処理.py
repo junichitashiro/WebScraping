@@ -6,14 +6,14 @@ csvファイルの値をWebサイト上で連続入力する処理
 # ----------------------------------------
 # モジュールのインポート
 # ----------------------------------------
-from selenium import webdriver
-import os
 import csv
-import tkinter as tk
-from tkinter import messagebox
+import os
+import tkinter.messagebox
+
+import selenium.webdriver
 
 # メッセージボックス用の設定
-root = tk.Tk()
+root = tkinter.Tk()
 root.withdraw()
 
 
@@ -30,20 +30,21 @@ if os.path.exists(csv_file):
     print('処理対象件数： ' + str(input_row - 1))
 
     if input_row < 2:
-        messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
+        tkinter.messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
         exit()
 
 else:
-    messagebox.showerror('ファイルチェックエラー', '『' + csv_file + '』が存在しないため処理を終了します。')
+    tkinter.messagebox.showerror('ファイルチェックエラー', '『' + csv_file + '』が存在しないため処理を終了します。')
     exit()
 
 
 # ----------------------------------------
 # ChromeDriverの設定
 # ----------------------------------------
-cd_path = 'C:\\ChromeDriver\\chromedriver.exe'
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
+cd_path = 'chromedriverの絶対パス'
+chrome_options = selenium.webdriver.ChromeOptions()
+# ブラウザ表示が不要な場合はコメントインする
+# chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
@@ -51,7 +52,7 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # 処理開始
 # ----------------------------------------
 print('>>>処理開始')
-driver = webdriver.Chrome(cd_path, options=chrome_options)
+driver = selenium.webdriver.Chrome(cd_path, options=chrome_options)
 driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://keisan.casio.jp/exec/system/1183427246/')
@@ -103,7 +104,7 @@ for i in range(1, input_row):
     energy = driver.find_element_by_xpath(ans0_xpath).text
     message = str(i) + '／' + str(input_row - 1) + '件目' + '''
     \n１日に必要なエネルギー量は ''' + energy + ' Kcalです'
-    messagebox.showinfo('計算結果', message)
+    tkinter.messagebox.showinfo('計算結果', message)
     driver.find_element_by_xpath(clear_xpath).click()
 
 
@@ -111,5 +112,5 @@ for i in range(1, input_row):
 # 処理終了
 # ----------------------------------------
 print('<<<処理終了')
-messagebox.showinfo('処理終了', '処理が終了しました')
+tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

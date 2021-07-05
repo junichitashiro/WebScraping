@@ -9,22 +9,24 @@ range(1, 48)で全都道府県が対象になる
 # ----------------------------------------
 # モジュールのインポート
 # ----------------------------------------
-from selenium import webdriver
-import time
 import math
-import tkinter as tk
-from tkinter import messagebox
+import time
+import tkinter.messagebox
+
+import selenium.webdriver
+
 
 # メッセージボックス用の設定
-root = tk.Tk()
+root = tkinter.Tk()
 root.withdraw()
 
 
 # ----------------------------------------
 # ChromeDriverの設定
 # ----------------------------------------
-cd_path = 'C:\\ChromeDriver\\chromedriver.exe'
-chrome_options = webdriver.ChromeOptions()
+cd_path = 'chromedriverの絶対パス'
+chrome_options = selenium.webdriver.ChromeOptions()
+# この処理はブラウザ表示するとエラー要因が増えるため非表示推奨
 chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
@@ -33,7 +35,7 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # 処理開始
 # ----------------------------------------
 print('>>>処理開始')
-driver = webdriver.Chrome(cd_path, options=chrome_options)
+driver = selenium.webdriver.Chrome(cd_path, options=chrome_options)
 driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://store.starbucks.co.jp/')
@@ -83,5 +85,5 @@ for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる
 # 処理終了
 # ----------------------------------------
 print('<<<処理終了')
-messagebox.showinfo('処理終了', '処理が終了しました')
+tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

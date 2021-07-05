@@ -8,14 +8,14 @@
 # ----------------------------------------
 # モジュールのインポート
 # ----------------------------------------
-from selenium import webdriver
+import selenium.webdriver
 
 
 # ----------------------------------------
 # 変数の設定
 # ----------------------------------------
-cd_path = 'C:\\ChromeDriver\\chromedriver.exe'
-chrome_options = webdriver.ChromeOptions()
+cd_path = 'chromedriverの絶対パス'
+chrome_options = selenium.webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
@@ -24,7 +24,7 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # 処理開始
 # ----------------------------------------
 print('>>>処理開始')
-driver = webdriver.Chrome(cd_path, options=chrome_options)
+driver = selenium.webdriver.Chrome(cd_path, options=chrome_options)
 driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://www.jorudan.co.jp/norikae/')
@@ -43,7 +43,7 @@ e_cnt = driver.find_elements_by_class_name('t1')
 # 出力処理
 with open('timetable.txt', 'w', encoding='utf8') as f:
     for i in range(len(e_cnt)):
-        xpath = '//*[@id="Bk_list_tbody"]/tr[' + str(i + 1) + ']/td[2]'
+        xpath = '//*[@id="left"]/div[4]/div[2]/table/tbody/tr[' + str(i + 1) + ']/td[2]'
         f.write(driver.find_element_by_xpath(xpath).text + '\n')
 
 
