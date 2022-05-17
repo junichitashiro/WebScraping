@@ -92,7 +92,7 @@ def create_csv(area_id, area_name, area_point):
         date = start_date
         while ym(date.year, date.month) != ym(end_date.year, end_date.month):
 
-            # 対象url（下記は東京）
+            # 対象url
             url = "http://www.data.jma.go.jp/obd/stats/etrn/view/daily_s1.php?" \
                   "prec_no=%d&block_no=%d&year=%d&month=%d&day=&view=" % (int(area_id), int(area_point), date.year, date.month)
 
