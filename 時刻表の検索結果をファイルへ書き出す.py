@@ -16,7 +16,7 @@ from selenium.webdriver.chrome import service as fs
 # ----------------------------------------
 # 変数の設定
 # ----------------------------------------
-CHROMEDRIVER = 'C:\chromedriver\chromedriver.exe'
+CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')

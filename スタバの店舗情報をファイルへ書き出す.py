@@ -26,7 +26,7 @@ root.withdraw()
 # ----------------------------------------
 # ChromeDriverの設定
 # ----------------------------------------
-CHROMEDRIVER = 'C:\chromedriver\chromedriver.exe'
+CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 # この処理はブラウザ表示するとエラー要因が増えるため非表示推奨

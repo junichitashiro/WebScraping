@@ -44,7 +44,7 @@ else:
 # ----------------------------------------
 # ChromeDriverの設定
 # ----------------------------------------
-CHROMEDRIVER = 'C:\chromedriver\chromedriver.exe'
+CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 # ブラウザ表示が不要な場合はコメントインする

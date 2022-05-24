@@ -25,9 +25,8 @@ import win32com.client
 # 変数の設定
 # ----------------------------------------
 file_ymd = datetime.datetime.today().strftime('%Y%m%d')
-folder_path = 'C:\\temp\\'
-file_name = '売上報告*_' + file_ymd + '.xlsx'
-
+folder_path = r'C:\temp'
+file_name = r'\売上報告*_' + file_ymd + '.xlsx'
 
 # ----------------------------------------
 # Outlookオブジェクトの設定
