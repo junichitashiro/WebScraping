@@ -1,14 +1,6 @@
-'''
-下記サイトの流用
-https://www.gis-py.com/entry/scraping-weather-data
-
-気象庁のWebサイトから1日毎の気象情報を取得する
-取得する期間は指定日から実行日の前月まで
-取得結果を地域ごとのcsvファイルで出力する
-一部（埼玉など）データ構造が異なる地域があるので注意
-'''
-
-
+# ----------------------------------------
+# モジュールのインポート
+# ----------------------------------------
 import csv
 import datetime
 import os
@@ -26,6 +18,9 @@ def str2float(weather_data):
         return 0
 
 
+# ----------------------------------------
+# 気象データ取得処理
+# ----------------------------------------
 def scraping(url, date, area_name):
     # 気象データのページを取得
     html = urllib.request.urlopen(url).read()
@@ -67,8 +62,11 @@ def scraping(url, date, area_name):
     return data_list_per_day
 
 
+# ----------------------------------------
+# csv出力処理
+# ----------------------------------------
 def create_csv(area_id, area_name, area_point):
-    # CSV 出力先ディレクトリ
+    # csv出力先ディレクトリ
     output_dir = os.path.dirname(__file__)
 
     # 出力ファイル名
@@ -80,7 +78,7 @@ def create_csv(area_id, area_name, area_point):
     # データ取得終了日 = 実行日
     end_date = datetime.date.today()
 
-    # CSVヘッダ
+    # csvヘッダ
     fields = ["年月", "日", "地域", "現地気圧", "海面気圧", "合計降水量", "最大降水量（1時間）", "最大降水量（10分間）",
               "平均気温", "最高気温", "最低気温", "平均湿度", "最小湿度", "平均風速", "日照時間", "降雪", "最深積雪"]
 
@@ -104,6 +102,9 @@ def create_csv(area_id, area_name, area_point):
             date = date + relativedelta.relativedelta(months=1)
 
 
+# ----------------------------------------
+# メイン処理
+# ----------------------------------------
 if __name__ == '__main__':
     area_names = {
         '44': 'Tokyo',
