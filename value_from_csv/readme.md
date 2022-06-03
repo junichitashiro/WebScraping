@@ -5,7 +5,7 @@
 * https://keisan.casio.jp/exec/system/1183427246/
 
 ## chromedriver
-* __C:\chromedriver__ に配置する
+* __C:\\chromedriver\\__ フォルダに配置する
 
 ## 処理内容
 1. csvファイルから値を読み込む
