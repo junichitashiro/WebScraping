@@ -37,8 +37,8 @@ def scraping(url, date, area_name):
         if tds[1].string is None:
             break
 
-        data_list.append(ym(date.year, date.month))
-        data_list.append(tds[0].string)
+        ymd = datetime.datetime(date.year, date.month, int(tds[0].string))
+        data_list.append(ymd.strftime('%Y-%m-%d'))
         data_list.append(area_name)
         data_list.append(str2float(tds[1].string))
         data_list.append(str2float(tds[2].string))
@@ -79,7 +79,7 @@ def create_csv(area_id, area_name, area_point):
     end_date = datetime.date.today()
 
     # csvヘッダ
-    fields = ["年月", "日", "地域", "現地気圧", "海面気圧", "合計降水量", "最大降水量（1時間）", "最大降水量（10分間）",
+    fields = ["年月日", "地域", "現地気圧", "海面気圧", "合計降水量", "最大降水量（1時間）", "最大降水量（10分間）",
               "平均気温", "最高気温", "最低気温", "平均湿度", "最小湿度", "平均風速", "日照時間", "降雪", "最深積雪"]
 
     with open(os.path.join(output_dir, output_file), 'w') as f:
