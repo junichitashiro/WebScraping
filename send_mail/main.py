@@ -53,10 +53,10 @@ if len(files) == 0:
 elif len(files) != 3:
     mail.body = mail.body + '\n※添付ファイルに過不足があります'
     mail.display(True)
-    # mail.send()
+    # mail.Send()
     print('---メール送信完了---')
 
 else:
     mail.display(True)
-    # mail.send()
+    # mail.Send()
     print('---メール送信完了---')
