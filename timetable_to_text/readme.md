@@ -7,7 +7,7 @@
 
 ## chromedriver
 
-* __C:\\chromedriver\\__ フォルダに配置する
+* __C:\\chromedriver__ フォルダに配置する
 
 ## 処理内容
 
