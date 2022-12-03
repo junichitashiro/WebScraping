@@ -1,13 +1,14 @@
 # ----------------------------------------
 # モジュールのインポート
 # ----------------------------------------
-import math
+import re
 import time
 import tkinter.messagebox
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.support.select import Select
 
 
 # メッセージボックス用の設定
@@ -21,8 +22,6 @@ root.withdraw()
 CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
-# この処理はブラウザ表示するとエラー要因が増えるため非表示推奨
-chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
@@ -35,47 +34,54 @@ driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://store.starbucks.co.jp/')
 
+# 画面遷移後に都道府県セレクトボックスの要素を取得
+time.sleep(3)
+selectbox = driver.find_element(By.ID, 'selectbox')
+
 for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる設定
-    todofuken_xpath = '//*[@id="search_section"]/div[2]/div[1]/div[2]/ul/li[' + str(todofuken_id) + ']/a'
+    Select(selectbox).select_by_value(str(todofuken_id))
+    time.sleep(3)
 
-    # 画面遷移
-    time.sleep(3)   # 後続処理を安定させるためのウェイト
-    todofuken_name = driver.find_element(By.XPATH, todofuken_xpath).text
-    print('>>処理対象：' + todofuken_name)
-    todofuken_chars = len(todofuken_name)
-    driver.find_element(By.XPATH, todofuken_xpath).click()
-    time.sleep(3)   # 後続処理を安定させるためのウェイト
+    # 都道府県選択後の情報取得前処理
+    todofuken_target = driver.find_element(By.XPATH, '//*[@id="selectbox"]/option[' + str(todofuken_id + 1) + ']').text
+    print('>>処理対象：' + todofuken_target)
 
-    # 遷移先での情報取得前処理
-    result_xpath = '//*[@id="result_title"]'
-    result_text = driver.find_element(By.XPATH, result_xpath).text
-    result_cnt = int(result_text[13 + todofuken_chars:-3])
-    print('>>処理件数：' + str(result_cnt))
+    todofuken_name = re.sub('( \(+[0-9]+\))', '', todofuken_target)
+    result_text = driver.find_element(By.XPATH, '//*[@id="vue-search"]/div[3]/div[1]/div/div[2]/div[1]/div[3]/div[1]').text
+    result_cnt = int(result_text.replace('件', ''))
 
-    # 「もっと見る」ボタンを押せるだけ押す
-    if result_cnt > 10:
-        push_cnt = math.ceil((result_cnt - 10) / 10)
-        more_xpath = '//*[@id="moreList"]'
+    # 「もっと見る」ボタンを押せるだけ押しておく
+    more_xpath = '//*[@id="vue-search"]/div[3]/div[1]/div/div[2]/div[1]/div[3]/div[2]/div[2]/button'
+    try :
+        more_button_cnt = len(driver.find_elements(By.XPATH, more_xpath))
+    except:
+        more_button_cnt = 0
 
-        for i in range(push_cnt):
-            driver.find_element(By.XPATH, more_xpath).click()
-            time.sleep(1)
+    while more_button_cnt > 0:
+        driver.find_element(By.XPATH, more_xpath).click
+        time.sleep(1)
+        try :
+            more_button_cnt = len(driver.find_elements(By.XPATH, more_xpath))
+        except:
+            more_button_cnt = 0
+
 
     # 店舗情報の取得と出力処理
     print('>>>書込処理開始')
     with open(todofuken_name + '.txt', 'w', encoding='utf8') as f:
-        i = 0
-        for i in range(result_cnt):
-            # 要素が画面外にあるとクリックできないのでスクリプト実行で対応する
-            driver.execute_script('arguments[0].click();', driver.find_elements(By.CLASS_NAME, 'item')[i])
-            time.sleep(0.5)
-            output_text = driver.find_elements(By.CLASS_NAME, 'item')[i].text
-            f.write('--------------------\n')
-            f.write(output_text[:-2])
+        i = 1
+        for i in range(1, result_cnt + 1):
+            # 100件ごとに画面を更新する
+            if  i % 100 == 0:
+                driver.find_element(By.XPATH, '//*[@id="store-list"]/li[' + str(i) + ']/div').click()
+                time.sleep(1)
+
+            output_text = driver.find_element(By.XPATH, '//*[@id="store-list"]/li[' + str(i) + ']/div').text
+            f.write('<' + str(i) + '>\n')
+            f.write(output_text + '\n')
     print('<<<書込処理終了')
 
-    driver.get('https://store.starbucks.co.jp/')
-    time.sleep(3)
+    time.sleep(1)
 
 
 # ----------------------------------------
