@@ -3,7 +3,7 @@
 ## 対象URL
 
 * 下記サイトのエネルギー必要量計算画面を使用する
-* https://keisan.casio.jp/exec/system/1183427246/
+  * https://keisan.casio.jp/exec/system/1183427246/
 
 ## chromedriver
 
