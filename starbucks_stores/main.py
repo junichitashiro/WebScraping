@@ -22,6 +22,7 @@ root.withdraw()
 CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')   # 画面非表示推奨
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
@@ -58,7 +59,7 @@ for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる
         more_button_cnt = 0
 
     while more_button_cnt > 0:
-        driver.find_element(By.XPATH, more_xpath).click
+        driver.find_element(By.XPATH, more_xpath).click()
         time.sleep(1)
         try:
             more_button_cnt = len(driver.find_elements(By.XPATH, more_xpath))
@@ -70,11 +71,6 @@ for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる
     with open(todofuken_name + '.txt', 'w', encoding='utf8') as f:
         i = 1
         for i in range(1, result_cnt + 1):
-            # 100件ごとに画面を更新する
-            if  i % 100 == 0:
-                driver.find_element(By.XPATH, '//*[@id="store-list"]/li[' + str(i) + ']/div').click()
-                time.sleep(1)
-
             output_text = driver.find_element(By.XPATH, '//*[@id="store-list"]/li[' + str(i) + ']/div').text
             f.write('<' + str(i) + '>\n')
             f.write(output_text + '\n')
