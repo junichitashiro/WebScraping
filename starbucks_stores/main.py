@@ -52,7 +52,7 @@ for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる
 
     # 「もっと見る」ボタンを押せるだけ押しておく
     more_xpath = '//*[@id="vue-search"]/div[3]/div[1]/div/div[2]/div[1]/div[3]/div[2]/div[2]/button'
-    try :
+    try:
         more_button_cnt = len(driver.find_elements(By.XPATH, more_xpath))
     except:
         more_button_cnt = 0
@@ -60,11 +60,10 @@ for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる
     while more_button_cnt > 0:
         driver.find_element(By.XPATH, more_xpath).click
         time.sleep(1)
-        try :
+        try:
             more_button_cnt = len(driver.find_elements(By.XPATH, more_xpath))
         except:
             more_button_cnt = 0
-
 
     # 店舗情報の取得と出力処理
     print('>>>書込処理開始')
