@@ -5,10 +5,6 @@
 * ジョルダンのWebサイト
   * https://www.jorudan.co.jp/norikae/
 
-## chromedriver
-
-* __C:\\chromedriver__ フォルダに配置する
-
 ## 処理内容
 
 1. ジョルダンのWebサイトを開く

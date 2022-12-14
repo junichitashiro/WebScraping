@@ -5,10 +5,12 @@ import re
 import time
 import tkinter.messagebox
 
+import chromedriver_binary
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # メッセージボックス用の設定
@@ -19,7 +21,10 @@ root.withdraw()
 # ----------------------------------------
 # ChromeDriverの設定
 # ----------------------------------------
-CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
+# ChromeDriverの最適化
+CHROMEDRIVER = ChromeDriverManager().install()
+
+# オプションの設定
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')   # 画面非表示推奨
@@ -39,7 +44,7 @@ driver.get('https://store.starbucks.co.jp/')
 time.sleep(3)
 selectbox = driver.find_element(By.ID, 'selectbox')
 
-for todofuken_id in range(2, 3):    # ここでは青森のみが対象となる設定
+for todofuken_id in range(1, 3):    # ここでは青森のみが対象となる設定
     Select(selectbox).select_by_value(str(todofuken_id))
     time.sleep(3)
 

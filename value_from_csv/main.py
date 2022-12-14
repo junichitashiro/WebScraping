@@ -5,9 +5,11 @@ import csv
 import os
 import tkinter.messagebox
 
+import chromedriver_binary
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # メッセージボックス用の設定
@@ -39,7 +41,10 @@ else:
 # ----------------------------------------
 # ChromeDriverの設定
 # ----------------------------------------
-CHROMEDRIVER = r'C:\chromedriver\chromedriver.exe'
+# ChromeDriverの最適化
+CHROMEDRIVER = ChromeDriverManager().install()
+
+# オプションの設定
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 # ブラウザ表示が不要な場合はコメントインする

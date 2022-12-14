@@ -5,10 +5,6 @@
 * 下記サイトのエネルギー必要量計算画面を使用する
   * https://keisan.casio.jp/exec/system/1183427246/
 
-## chromedriver
-
-* __C:\\chromedriver__ フォルダに配置する
-
 ## 処理内容
 
 1. csvファイルから値を読み込む
