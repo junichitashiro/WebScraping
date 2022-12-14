@@ -44,7 +44,7 @@ driver.get('https://store.starbucks.co.jp/')
 time.sleep(3)
 selectbox = driver.find_element(By.ID, 'selectbox')
 
-for todofuken_id in range(1, 3):    # ここでは青森のみが対象となる設定
+for todofuken_id in range(1, 2):    # ここでは北海道のみが対象となる設定
     Select(selectbox).select_by_value(str(todofuken_id))
     time.sleep(3)
 
