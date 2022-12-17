@@ -49,10 +49,11 @@ for todofuken_id in range(1, 2):    # ここでは北海道のみが対象とな
     time.sleep(3)
 
     # 都道府県選択後の情報取得前処理
-    todofuken_target = driver.find_element(By.XPATH, '//*[@id="selectbox"]/option[' + str(todofuken_id + 1) + ']').text
-    print('>>処理対象：' + todofuken_target)
+    todofuken_id += 1
+    target = driver.find_element(By.XPATH, f'//*[@id="selectbox"]/option[{todofuken_id}]').text
+    print('>>処理対象：' + target)
 
-    todofuken_name = re.sub('( \(+[0-9]+\))', '', todofuken_target)
+    todofuken_name = re.sub('( \(+[0-9]+\))', '', target)
     result_text = driver.find_element(By.XPATH, '//*[@id="vue-search"]/div[3]/div[1]/div/div[2]/div[1]/div[3]/div[1]').text
     result_cnt = int(result_text.replace('件', ''))
 
@@ -76,8 +77,8 @@ for todofuken_id in range(1, 2):    # ここでは北海道のみが対象とな
     with open(todofuken_name + '.txt', 'w', encoding='utf8') as f:
         i = 1
         for i in range(1, result_cnt + 1):
-            output_text = driver.find_element(By.XPATH, '//*[@id="store-list"]/li[' + str(i) + ']/div').text
-            f.write('<' + str(i) + '>\n')
+            output_text = driver.find_element(By.XPATH, f'//*[@id="store-list"]/li[{i}]/div').text
+            f.write(f'<{i}>\n')
             f.write(output_text + '\n')
     print('<<<書込処理終了')
 
