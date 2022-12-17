@@ -34,7 +34,7 @@ if os.path.exists(csv_file):
         exit()
 
 else:
-    tkinter.messagebox.showerror('ファイルチェックエラー', '『' + csv_file + '』が存在しないため処理を終了します。')
+    tkinter.messagebox.showerror('ファイルチェックエラー', f'『{csv_file}』が存在しないため処理を終了します。')
     exit()
 
 

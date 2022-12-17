@@ -39,12 +39,12 @@ driver.find_element(By.XPATH, xpath).send_keys('東京')
 # 検索ボタンクリック
 xpath = '//*[@id="search_body"]/div[3]/input'
 driver.find_element(By.XPATH, xpath).click()
-e_cnt = driver.find_elements(By.CLASS_NAME, 't1')
+e_cnt = len(driver.find_elements(By.CLASS_NAME, 't1'))
 
 # 出力処理
 with open('timetable.txt', 'w', encoding='utf8') as f:
-    for i in range(len(e_cnt)):
-        xpath = '//*[@id="left"]/div[4]/div[2]/table/tbody/tr[' + str(i + 1) + ']/td[2]'
+    for i in range(1, e_cnt + 1):
+        xpath = f'//*[@id="left"]/div[4]/div[2]/table/tbody/tr[{i}]/td[2]'
         f.write(driver.find_element(By.XPATH, xpath).text + '\n')
 
 
