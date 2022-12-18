@@ -22,7 +22,7 @@ root.withdraw()
 # ----------------------------------------
 csv_file = 'input.csv'
 if os.path.exists(csv_file):
-    with open(csv_file, 'r', encoding='utf8') as f:
+    with open(csv_file, mode='r', encoding='utf8') as f:
         reader = csv.reader(f)
         line = [row for row in reader]
 

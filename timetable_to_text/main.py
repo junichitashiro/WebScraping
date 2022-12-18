@@ -42,7 +42,7 @@ driver.find_element(By.XPATH, xpath).click()
 e_cnt = len(driver.find_elements(By.CLASS_NAME, 't1'))
 
 # 出力処理
-with open('timetable.txt', 'w', encoding='utf8') as f:
+with open('timetable.txt', mode='w', encoding='utf-8') as f:
     for i in range(1, e_cnt + 1):
         xpath = f'//*[@id="left"]/div[4]/div[2]/table/tbody/tr[{i}]/td[2]'
         f.write(driver.find_element(By.XPATH, xpath).text + '\n')

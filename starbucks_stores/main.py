@@ -74,7 +74,7 @@ for todofuken_id in range(1, 2):    # ここでは北海道のみが対象とな
 
     # 店舗情報の取得と出力処理
     print('>>>書込処理開始')
-    with open(todofuken_name + '.txt', 'w', encoding='utf8') as f:
+    with open(todofuken_name + '.txt', mode='w', encoding='utf-8') as f:
         i = 1
         for i in range(1, result_cnt + 1):
             output_text = driver.find_element(By.XPATH, f'//*[@id="store-list"]/li[{i}]/div').text
