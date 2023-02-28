@@ -63,7 +63,7 @@ def scraping(url, date, prec_name):
 
 
 # ----------------------------------------
-# csv出力処理
+# CSV出力処理
 # ----------------------------------------
 def create_csv(prec_no, prec_name, block_no):
     # csv出力先ディレクトリ
@@ -78,7 +78,7 @@ def create_csv(prec_no, prec_name, block_no):
     # データ取得終了日 = 実行日
     end_date = datetime.date.today()
 
-    # csvヘッダ
+    # CSVヘッダ
     fields = ["年月日", "地域", "現地気圧", "海面気圧", "合計降水量", "最大降水量（1時間）", "最大降水量（10分間）",
               "平均気温", "最高気温", "最低気温", "平均湿度", "最小湿度", "平均風速", "日照時間", "降雪", "最深積雪"]
 
