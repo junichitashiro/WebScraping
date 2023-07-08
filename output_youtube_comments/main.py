@@ -1,6 +1,6 @@
-# ----------------------------------------
-# モジュールのインポート
-# ----------------------------------------
+# ========================================
+# 初期処理
+# ========================================
 import os
 import time
 import tkinter.messagebox
@@ -12,15 +12,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
-
 # メッセージボックス用の設定
 root = tkinter.Tk()
 root.withdraw()
 
-
-# ----------------------------------------
 # 入力ファイルの読み込み
-# ----------------------------------------
 input_file = r'url_list.txt'
 url_list = []
 if os.path.exists(input_file):
@@ -39,10 +35,6 @@ else:
     tkinter.messagebox.showerror('ファイルチェックエラー', f'『{input_file}』が存在しないため処理を終了します。')
     exit()
 
-
-# ----------------------------------------
-# ChromeDriverの設定
-# ----------------------------------------
 # ChromeDriverの最適化
 CHROMEDRIVER = ChromeDriverManager().install()
 
@@ -53,9 +45,9 @@ chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
-# ----------------------------------------
-# 処理開始
-# ----------------------------------------
+# ========================================
+# メイン処理
+# ========================================
 print('>処理開始')
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 driver.maximize_window()
@@ -114,9 +106,9 @@ for url in url_list:
     time.sleep(3)
 
 
-# ----------------------------------------
-# 処理終了
-# ----------------------------------------
+# ========================================
+# 終了処理
+# ========================================
 print('<処理終了')
 tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

@@ -1,6 +1,6 @@
-# ----------------------------------------
-# モジュールのインポート
-# ----------------------------------------
+# ========================================
+# 初期処理
+# ========================================
 import csv
 import os
 import tkinter.messagebox
@@ -11,15 +11,11 @@ from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-
 # メッセージボックス用の設定
 root = tkinter.Tk()
 root.withdraw()
 
-
-# ----------------------------------------
 # csvファイルの読み込み
-# ----------------------------------------
 csv_file = 'input.csv'
 if os.path.exists(csv_file):
     with open(csv_file, mode='r', encoding='utf8') as f:
@@ -37,10 +33,6 @@ else:
     tkinter.messagebox.showerror('ファイルチェックエラー', f'『{csv_file}』が存在しないため処理を終了します。')
     exit()
 
-
-# ----------------------------------------
-# ChromeDriverの設定
-# ----------------------------------------
 # ChromeDriverの最適化
 CHROMEDRIVER = ChromeDriverManager().install()
 
@@ -52,9 +44,9 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
-# ----------------------------------------
-# 処理開始
-# ----------------------------------------
+# ========================================
+# メイン処理
+# ========================================
 print('>>>処理開始')
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
@@ -62,10 +54,7 @@ driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://keisan.casio.jp/exec/system/1183427246/')
 
-
-# ----------------------------------------
 # 入力に使用する画面要素の設定
-# ----------------------------------------
 age_xpath = '//*[@id="var_age"]'
 sx0_xpath = '//*[@id="inparea"]/tbody/tr[2]/td[2]/ul/ol/li[5]/label[1]'
 sx1_xpath = '//*[@id="inparea"]/tbody/tr[2]/td[2]/ul/ol/li[5]/label[2]'
@@ -78,9 +67,9 @@ execute_xpath = '//*[@id="executebtn"]'
 clear_xpath = '//*[@id="clearbtn"]'
 
 
-# ----------------------------------------
+# ------------------------------
 # 情報の入力と計算の実行
-# ----------------------------------------
+# ------------------------------
 for i in range(1, input_row):
     age = line[i][0]
     sex = line[i][1]
@@ -113,9 +102,9 @@ for i in range(1, input_row):
     driver.find_element(By.XPATH, clear_xpath).click()
 
 
-# ----------------------------------------
-# 処理終了
-# ----------------------------------------
+# ========================================
+# 終了処理
+# ========================================
 print('<<<処理終了')
 tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

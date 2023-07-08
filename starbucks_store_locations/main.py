@@ -1,6 +1,6 @@
-# ----------------------------------------
-# モジュールのインポート
-# ----------------------------------------
+# ========================================
+# 初期処理
+# ========================================
 import re
 import time
 import tkinter.messagebox
@@ -12,15 +12,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from webdriver_manager.chrome import ChromeDriverManager
 
-
 # メッセージボックス用の設定
 root = tkinter.Tk()
 root.withdraw()
 
-
-# ----------------------------------------
-# ChromeDriverの設定
-# ----------------------------------------
 # ChromeDriverの最適化
 CHROMEDRIVER = ChromeDriverManager().install()
 
@@ -31,9 +26,9 @@ chrome_options.add_argument('--headless')   # 画面非表示推奨
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 
-# ----------------------------------------
-# 処理開始
-# ----------------------------------------
+# ========================================
+# メイン処理
+# ========================================
 print('>処理開始')
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 driver.maximize_window()
@@ -72,7 +67,9 @@ for todofuken_id in range(1, 2):    # ここでは北海道のみが対象とな
         except:
             more_button_cnt = 0
 
+    # ------------------------------
     # 店舗情報の取得と出力処理
+    # ------------------------------
     print('>>>書込処理開始')
     with open(todofuken_name + '.txt', mode='w', encoding='utf-8') as f:
         i = 1
@@ -85,9 +82,9 @@ for todofuken_id in range(1, 2):    # ここでは北海道のみが対象とな
     time.sleep(1)
 
 
-# ----------------------------------------
-# 処理終了
-# ----------------------------------------
+# ========================================
+# 終了処理
+# ========================================
 print('<処理終了')
 tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

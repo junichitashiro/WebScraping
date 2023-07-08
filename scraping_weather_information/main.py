@@ -1,6 +1,6 @@
-# ----------------------------------------
-# モジュールのインポート
-# ----------------------------------------
+# ========================================
+# 初期処理
+# ========================================
 import csv
 import datetime
 import os
@@ -11,6 +11,9 @@ from ym import ym
 from bs4 import BeautifulSoup
 
 
+# ******************************
+# データ変換処理
+# ******************************
 def str2float(weather_data):
     try:
         return float(weather_data)
@@ -18,9 +21,9 @@ def str2float(weather_data):
         return 0
 
 
-# ----------------------------------------
+# ******************************
 # 気象データ取得処理
-# ----------------------------------------
+# ******************************
 def scraping(url, date, prec_name):
     # 気象データのページを取得
     html = urllib.request.urlopen(url).read()
@@ -62,9 +65,9 @@ def scraping(url, date, prec_name):
     return data_list_per_day
 
 
-# ----------------------------------------
+# ******************************
 # CSV出力処理
-# ----------------------------------------
+# ******************************
 def create_csv(prec_no, prec_name, block_no):
     # csv出力先ディレクトリ
     output_dir = os.path.dirname(__file__)
@@ -102,9 +105,9 @@ def create_csv(prec_no, prec_name, block_no):
             date = date + relativedelta.relativedelta(months=1)
 
 
-# ----------------------------------------
+# ========================================
 # メイン処理
-# ----------------------------------------
+# ========================================
 if __name__ == '__main__':
     prec_info = {
         '14': '北海道'
