@@ -15,7 +15,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 root = tkinter.Tk()
 root.withdraw()
 
-# csvファイルの読み込み
+# CSVファイルの読み込み
 csv_file = 'input.csv'
 if os.path.exists(csv_file):
     with open(csv_file, mode='r', encoding='utf8') as f:
