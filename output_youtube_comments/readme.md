@@ -1,11 +1,6 @@
-# YouTubeのコメント情報をテキストファイルに書き出す
+# 処理概要
 
-## 対象URLのサンプル
-
-* SOUL'd OUT　『Magenta Magenta』
-  * https://www.youtube.com/watch?v=qbEx4fK6TKE
-* SOUL'd OUT　『TOKYO通信 ～Urbs Communication～』
-  * https://www.youtube.com/watch?v=SO51jyCs3PA
+YouTubeのコメント情報をテキストファイルに書き出す
 
 ## 処理内容
 
@@ -15,12 +10,25 @@
 4. Good評価が1つ以上あればコメントを取得する
 5. 取得したGood数とコメントをテキストファイルに出力する
 
-## 入力ファイル
+### 入力ファイル
 
 * ファイル名：url_list.txt
 * 実行ディレクトリに配置する
 
-## 出力ファイル
+#### 入力ファイルのサンプル
+
+```txt
+https://www.youtube.com/watch?v=qbEx4fK6TKE
+https://www.youtube.com/watch?v=SO51jyCs3PA
+```
+
+* https://www.youtube.com/watch?v=qbEx4fK6TKE
+  * SOUL'd OUT　『Magenta Magenta』
+* https://www.youtube.com/watch?v=SO51jyCs3PA
+  * SOUL'd OUT　『TOKYO通信 ～Urbs Communication～』
+
+
+### 出力ファイル
 
 * ファイル名：ページタイトル.txt
 * 実行ディレクトリに出力される
