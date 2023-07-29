@@ -1,6 +1,3 @@
-# ========================================
-# 初期処理
-# ========================================
 import os
 import time
 import tkinter.messagebox
@@ -12,6 +9,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
+
+# ========================================
+# 初期処理
+# ========================================
 # メッセージボックス用の設定
 root = tkinter.Tk()
 root.withdraw()

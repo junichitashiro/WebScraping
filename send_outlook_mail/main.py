@@ -1,11 +1,12 @@
-# ========================================
-# 初期処理
-# ========================================
 import datetime
 import glob
 
 import win32com.client
 
+
+# ========================================
+# 初期処理
+# ========================================
 # 変数の設定
 file_ymd = datetime.datetime.today().strftime('%Y%m%d')
 folder_path = r'C:\temp'

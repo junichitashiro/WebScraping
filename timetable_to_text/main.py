@@ -1,12 +1,13 @@
-# ========================================
-# 初期処理
-# ========================================
 import chromedriver_binary
 from selenium import webdriver
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
+
+# ========================================
+# 初期処理
+# ========================================
 # ChromeDriverの最適化
 CHROMEDRIVER = ChromeDriverManager().install()
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)

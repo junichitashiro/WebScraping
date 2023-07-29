@@ -1,7 +1,3 @@
-# ========================================
-# 初期処理
-# ========================================
-import csv
 import os
 import tkinter.messagebox
 
@@ -11,6 +7,11 @@ from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
+
+# ========================================
+# 初期処理
+# ========================================
+import csv
 # メッセージボックス用の設定
 root = tkinter.Tk()
 root.withdraw()
