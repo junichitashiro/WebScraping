@@ -1,3 +1,4 @@
+import csv
 import os
 import tkinter.messagebox
 
@@ -10,7 +11,6 @@ from selenium.webdriver.common.by import By
 # ========================================
 # 初期処理
 # ========================================
-import csv
 # メッセージボックス用の設定
 root = tkinter.Tk()
 root.withdraw()
