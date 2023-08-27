@@ -2,12 +2,11 @@ import re
 import time
 import tkinter.messagebox
 
-import chromedriver_binary
+import chromedriver_binary_sync
 from selenium import webdriver
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 # ========================================
@@ -17,11 +16,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 root = tkinter.Tk()
 root.withdraw()
 
-# ChromeDriverの最適化
-CHROMEDRIVER = ChromeDriverManager().install()
+# ChromeDriverをダウンロードしてパスを定数に格納する
+CHROMEDRIVER = chromedriver_binary_sync.download(download_dir='chromedriver')
+chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 
 # オプションの設定
-chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')   # 画面非表示推奨
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])

@@ -1,16 +1,17 @@
-import chromedriver_binary
+import chromedriver_binary_sync
 from selenium import webdriver
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 # ========================================
 # 初期処理
 # ========================================
-# ChromeDriverの最適化
-CHROMEDRIVER = ChromeDriverManager().install()
+# ChromeDriverをダウンロードしてパスを定数に格納する
+CHROMEDRIVER = chromedriver_binary_sync.download(download_dir='chromedriver')
 chrome_service = fs.Service(executable_path=CHROMEDRIVER)
+
+# オプションの設定
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])

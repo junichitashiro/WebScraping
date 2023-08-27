@@ -1,11 +1,10 @@
 import os
 import tkinter.messagebox
 
-import chromedriver_binary
+import chromedriver_binary_sync
 from selenium import webdriver
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 # ========================================
@@ -34,11 +33,11 @@ else:
     tkinter.messagebox.showerror('ファイルチェックエラー', f'『{csv_file}』が存在しないため処理を終了します。')
     exit()
 
-# ChromeDriverの最適化
-CHROMEDRIVER = ChromeDriverManager().install()
+# ChromeDriverをダウンロードしてパスを定数に格納する
+CHROMEDRIVER = chromedriver_binary_sync.download(download_dir='chromedriver')
+chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 
 # オプションの設定
-chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 # ブラウザ表示が不要な場合はコメントインする
 # chrome_options.add_argument('--headless')
