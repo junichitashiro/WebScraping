@@ -7,7 +7,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 
-
 # ========================================
 # 初期処理
 # ========================================
@@ -43,7 +42,6 @@ chrome_options = webdriver.ChromeOptions()
 # chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
-
 # ========================================
 # メイン処理
 # ========================================
@@ -65,7 +63,6 @@ kg_xpath = '//*[@id="var_kg"]'
 ans0_xpath = '//*[@id="ans0"]'
 execute_xpath = '//*[@id="executebtn"]'
 clear_xpath = '//*[@id="clearbtn"]'
-
 
 # ------------------------------
 # 情報の入力と計算の実行
@@ -100,7 +97,6 @@ for i in range(1, input_row):
     \n１日に必要なエネルギー量は ''' + energy + ' Kcalです'
     tkinter.messagebox.showinfo('計算結果', message)
     driver.find_element(By.XPATH, clear_xpath).click()
-
 
 # ========================================
 # 終了処理

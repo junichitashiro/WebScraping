@@ -8,7 +8,6 @@ from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-
 # ========================================
 # 初期処理
 # ========================================
@@ -43,7 +42,6 @@ chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
-
 
 # ========================================
 # メイン処理
@@ -104,7 +102,6 @@ for url in url_list:
         pass
 
     time.sleep(3)
-
 
 # ========================================
 # 終了処理

@@ -8,7 +8,6 @@ from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
-
 # ========================================
 # 初期処理
 # ========================================
@@ -24,7 +23,6 @@ chrome_service = fs.Service(executable_path=CHROMEDRIVER)
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')   # 画面非表示推奨
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
-
 
 # ========================================
 # メイン処理
@@ -80,7 +78,6 @@ for todofuken_id in range(1, 2):    # ここでは北海道のみが対象とな
     print('<<<書込処理終了')
 
     time.sleep(1)
-
 
 # ========================================
 # 終了処理

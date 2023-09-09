@@ -7,7 +7,6 @@ from dateutil import relativedelta
 from ym import ym
 from bs4 import BeautifulSoup
 
-
 # ******************************
 # データ変換処理
 # ******************************
@@ -16,7 +15,6 @@ def str2float(weather_data):
         return float(weather_data)
     except Exception:
         return 0
-
 
 # ******************************
 # 気象データ取得処理
@@ -61,7 +59,6 @@ def scraping(url, date, prec_name):
 
     return data_list_per_day
 
-
 # ******************************
 # CSV出力処理
 # ******************************
@@ -100,7 +97,6 @@ def create_csv(prec_no, prec_name, block_no):
                 writer.writerow(dpd)
 
             date = date + relativedelta.relativedelta(months=1)
-
 
 # ========================================
 # メイン処理

@@ -3,7 +3,6 @@ import glob
 
 import win32com.client
 
-
 # ========================================
 # 初期処理
 # ========================================
@@ -31,7 +30,6 @@ print('---添付ファイルを表示---')
 for add_file in files:
     print(glob.glob(add_file))
     mail.attachments.Add(add_file)
-
 
 # ========================================
 # メイン処理
