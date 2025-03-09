@@ -16,7 +16,7 @@ root = tkinter.Tk()
 root.withdraw()
 
 # 入力ファイルの読み込み
-input_file = r'url_list.txt'
+input_file = 'url_list.txt'
 url_list = []
 if os.path.exists(input_file):
     with open(input_file, mode='r', encoding='utf-8') as f:
@@ -55,6 +55,7 @@ driver.implicitly_wait(5)
 for url in url_list:
     driver.get(url)
     content = driver.find_element(By.TAG_NAME, 'body')
+    time.sleep(30)
 
     # タイトルが取得できなかったらYouTubeページではないと判断
     try:
@@ -81,12 +82,12 @@ for url in url_list:
             i = 1
             while i > 0:
                 try:
-                    good_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/ytd-comment-renderer/div[3]/div[2]/ytd-comment-action-buttons-renderer/div[1]/span[2]'
+                    good_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/ytd-comment-view-model/div[3]/div[2]/ytd-comment-engagement-bar/div[1]/span'
                     good = driver.find_element(By.XPATH, good_xpath)
 
                     # Goodが1つ以上あったらその数とコメントを書き込む
                     if good.text != '':
-                        com_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/ytd-comment-renderer/div[3]/div[2]/div[2]/ytd-expander/div/yt-formatted-string'
+                        com_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/ytd-comment-view-model/div[3]/div[2]/ytd-expander/div/yt-attributed-string/span'
                         com = driver.find_element(By.XPATH, com_xpath)
                         com_text = com.text.replace('\n', '')
                         f.write(f'【{good.text}】\t')
