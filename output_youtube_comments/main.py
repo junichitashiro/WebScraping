@@ -1,24 +1,27 @@
-import os
 import time
-import tkinter.messagebox
+import tkinter as tk
+from pathlib import Path
+from tkinter import messagebox
 
 import chromedriver_binary_sync
-from selenium import webdriver
-from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 # ========================================
 # 初期処理
 # ========================================
-# メッセージボックス用の設定
-root = tkinter.Tk()
+# メッセージ表示に Tkinter を使う
+root = tk.Tk()
 root.withdraw()
 
 # 入力ファイルの読み込み
-input_file = 'url_list.txt'
+input_file = Path().cwd() / 'url_list.txt'
 url_list = []
-if os.path.exists(input_file):
+
+if input_file.exists():
     with open(input_file, mode='r', encoding='utf-8') as f:
         for i in f:
             url_list.append(i)
@@ -27,19 +30,19 @@ if os.path.exists(input_file):
     print(f'処理対象件数： {input_row}')
 
     if input_row < 1:
-        tkinter.messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
+        messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
         exit()
 
 else:
-    tkinter.messagebox.showerror('ファイルチェックエラー', f'『{input_file}』が存在しないため処理を終了します。')
+    messagebox.showerror('ファイルチェックエラー', 'カレントディレクトリに url_list.txt が存在しないため処理を終了します。')
     exit()
 
 # ChromeDriverをダウンロードしてパスを定数に格納する
 CHROMEDRIVER = chromedriver_binary_sync.download(download_dir='chromedriver')
-chrome_service = fs.Service(executable_path=CHROMEDRIVER)
+chrome_service = Service(executable_path=CHROMEDRIVER)
 
 # オプションの設定
-chrome_options = webdriver.ChromeOptions()
+chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
@@ -47,7 +50,7 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # メイン処理
 # ========================================
 print('>処理開始')
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+driver = WebDriver(service=chrome_service, options=chrome_options)
 driver.maximize_window()
 driver.implicitly_wait(5)
 
@@ -79,15 +82,15 @@ for url in url_list:
         # Good評価のついているコメントを取得して出力する
         print('>>>書込処理開始')
         with open(f'{title}.txt', 'w', encoding='utf8') as f:
-            i = 1
+            i = 2
             while i > 0:
                 try:
-                    good_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/ytd-comment-view-model/div[3]/div[2]/ytd-comment-engagement-bar/div[1]/span'
+                    good_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[4]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/div[1]/ytd-comment-view-model/div[3]/div[2]/ytd-comment-engagement-bar/div[1]/span'
                     good = driver.find_element(By.XPATH, good_xpath)
 
                     # Goodが1つ以上あったらその数とコメントを書き込む
                     if good.text != '':
-                        com_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/ytd-comment-view-model/div[3]/div[2]/ytd-expander/div/yt-attributed-string/span'
+                        com_xpath = f'/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[4]/div[1]/div/div[2]/ytd-comments/ytd-item-section-renderer/div[3]/ytd-comment-thread-renderer[{i}]/div[1]/ytd-comment-view-model/div[3]/div[2]/ytd-expander/div/yt-attributed-string/span'
                         com = driver.find_element(By.XPATH, com_xpath)
                         com_text = com.text.replace('\n', '')
                         f.write(f'【{good.text}】\t')
@@ -108,5 +111,5 @@ for url in url_list:
 # 終了処理
 # ========================================
 print('<処理終了')
-tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
+messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

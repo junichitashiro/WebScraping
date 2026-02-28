@@ -1,22 +1,25 @@
 import csv
-import os
-import tkinter.messagebox
+import tkinter as tk
+from pathlib import Path
+from tkinter import messagebox
 
 import chromedriver_binary_sync
-from selenium import webdriver
-from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
 # ========================================
 # 初期処理
 # ========================================
-# メッセージボックス用の設定
-root = tkinter.Tk()
+# メッセージ表示に Tkinter を使う
+root = tk.Tk()
 root.withdraw()
 
 # CSVファイルの読み込み
-csv_file = 'input.csv'
-if os.path.exists(csv_file):
+csv_file = Path.cwd() / 'input.csv'
+
+if csv_file.exists():
     with open(csv_file, mode='r', encoding='utf8') as f:
         reader = csv.reader(f)
         line = [row for row in reader]
@@ -25,28 +28,26 @@ if os.path.exists(csv_file):
     print('処理対象件数： ' + str(input_row - 1))
 
     if input_row < 2:
-        tkinter.messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
+        messagebox.showwarning('件数チェックエラー', '処理対象データがないため処理を終了します。')
         exit()
 
 else:
-    tkinter.messagebox.showerror('ファイルチェックエラー', f'『{csv_file}』が存在しないため処理を終了します。')
+    messagebox.showerror('ファイルチェックエラー', 'カレントディレクトリに input.csv が存在しないため処理を終了します。')
     exit()
 
 # ChromeDriverをダウンロードしてパスを定数に格納する
 CHROMEDRIVER = chromedriver_binary_sync.download(download_dir='chromedriver')
-chrome_service = fs.Service(executable_path=CHROMEDRIVER)
+chrome_service = Service(executable_path=CHROMEDRIVER)
 
 # オプションの設定
-chrome_options = webdriver.ChromeOptions()
-# ブラウザ表示が不要な場合はコメントインする
-# chrome_options.add_argument('--headless')
+chrome_options = Options()
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
 # ========================================
 # メイン処理
 # ========================================
 print('>>>処理開始')
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+driver = WebDriver(service=chrome_service, options=chrome_options)
 
 driver.maximize_window()
 driver.implicitly_wait(10)
@@ -93,14 +94,13 @@ for i in range(1, input_row):
 
     # 計算結果の表示
     energy = driver.find_element(By.XPATH, ans0_xpath).text
-    message = str(i) + '／' + str(input_row - 1) + '件目' + '''
-    \n１日に必要なエネルギー量は ''' + energy + ' Kcalです'
-    tkinter.messagebox.showinfo('計算結果', message)
+    message = f'{i}／ {str(input_row - 1)}件目\n１日に必要なエネルギー量は {energy} Kcalです'
+    messagebox.showinfo('計算結果', message)
     driver.find_element(By.XPATH, clear_xpath).click()
 
 # ========================================
 # 終了処理
 # ========================================
 print('<<<処理終了')
-tkinter.messagebox.showinfo('処理終了', '処理が終了しました')
+messagebox.showinfo('処理終了', '処理が終了しました')
 driver.quit()

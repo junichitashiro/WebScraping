@@ -1,6 +1,7 @@
 import chromedriver_binary_sync
-from selenium import webdriver
-from selenium.webdriver.chrome import service as fs
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
 # ========================================
@@ -8,10 +9,10 @@ from selenium.webdriver.common.by import By
 # ========================================
 # ChromeDriverをダウンロードしてパスを定数に格納する
 CHROMEDRIVER = chromedriver_binary_sync.download(download_dir='chromedriver')
-chrome_service = fs.Service(executable_path=CHROMEDRIVER)
+chrome_service = Service(executable_path=CHROMEDRIVER)
 
 # オプションの設定
-chrome_options = webdriver.ChromeOptions()
+chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
 
@@ -19,7 +20,7 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-automation', 
 # メイン処理
 # ========================================
 print('>処理開始')
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+driver = WebDriver(service=chrome_service, options=chrome_options)
 driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://www.jorudan.co.jp/norikae/')
